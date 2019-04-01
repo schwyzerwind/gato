@@ -1,6 +1,16 @@
 <head>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>Gato</title>
 </head>
 <body>
 <h1>Gato</h1>
+  <table>
+    <tr>
+      <td id="square1"></td><td id="square2"></td>
+  </table>
+$().ready(function() {
+   $("td").click(function () {
+    alert("Test");
+  }
+});  
 </body>
