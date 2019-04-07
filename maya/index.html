@@ -1,0 +1,70 @@
+<head>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+var squareValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+var squareNums = [3, 0, 10, 1, 12, 15, 20, 19, 21];
+</script>
+<style>
+table {
+  border-collapse: collapse;
+}
+
+td {
+  border: 1px solid black;
+  width: 300px;
+  height: 300px;
+  text-align: center;
+  font-size: 250px;
+}
+</style>
+<title>Gato</title>
+</head>
+<link rel="icon" href="favicon.ico"/>
+<body>
+<!-- <h1>Gato</h1> -->
+  <table>
+    <tr>
+      <td id="square0"><img width="250" src="https://upload.wikimedia.org/wikipedia/commons/3/30/Maya_3.svg"><span/></td>
+      <td id="square1"><img width="250" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Mayan00.svg"><span/></td>
+      <td id="square2"><img width="250" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Maya_10.svg"><span/></td>
+    </tr>
+    <tr>
+      <td id="square3"><img width="250" src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Maya_1.svg"></img><span/></td>
+      <td id="square4"><img width="250" src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Maya_12.svg"><span/></td>
+      <td id="square5"><img width="250" src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Maya_15.svg"><span/></td>
+    </tr>
+    <tr>
+      <td id="square6"><img height="125" width="250" src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Maya_1.svg">
+      <img width="250" height="125" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Mayan00.svg"><span/></td>
+      <td id="square7"><img width="250" src="https://upload.wikimedia.org/wikipedia/commons/7/73/Maya_19.svg"><span/></td>
+      <td id="square8"><img width="250" height="125" src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Maya_1.svg"><img width="250" height="125" src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Maya_1.svg"><span/></td>
+    </tr>
+  </table>
+<script>
+$().ready(function() {
+   $("td").click(function () {
+    var index = $(this).attr("id").substring(6);
+    squareValues[index]++;
+    if (squareValues[index] > 2) {
+      squareValues[index] = 0;
+    }    
+    if (squareValues[index] === 0) {
+//      $(this).html(squareNums[index]);
+      $(this).find("span").html("");
+      $(this).find("img").show();
+    } else if (squareValues[index] === 1) {
+      $(this).find("img").hide();
+      $(this).find("span").html("X").css("color", "red");
+    } else if (squareValues[index] === 2) {
+      $(this).find("span").html("O").css("color", "green");
+    }
+  })
+  
+    
+//    for (var i = 0; i < 9; i++) {
+//      $("#square" + i).html(squareNums[i]);
+//    }
+  
+}); 
+</script>
+</body>

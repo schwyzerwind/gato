@@ -2,7 +2,6 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
 var squareValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-var squareNums = [3, 0, 10, 1, 12, 15, 20, 19, 21];
 </script>
 <style>
 table {
@@ -11,6 +10,9 @@ table {
 
 td {
   border: 1px solid black;
+}
+
+#game td {
   width: 300px;
   height: 300px;
   text-align: center;
@@ -22,49 +24,72 @@ td {
 <link rel="icon" href="favicon.ico"/>
 <body>
 <!-- <h1>Gato</h1> -->
+<div id="game">
   <table>
     <tr>
-      <td id="square0"><img width="250" src="https://upload.wikimedia.org/wikipedia/commons/3/30/Maya_3.svg"><span/></td>
-      <td id="square1"><img width="250" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Mayan00.svg"><span/></td>
-      <td id="square2"><img width="250" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Maya_10.svg"><span/></td>
+      <td class="game" id="square0"><span/></td>
+      <td class="game" id="square1"><span/></td>
+      <td class="game" id="square2"><span/></td>
     </tr>
     <tr>
-      <td id="square3"><img width="250" src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Maya_1.svg"></img><span/></td>
-      <td id="square4"><img width="250" src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Maya_12.svg"><span/></td>
-      <td id="square5"><img width="250" src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Maya_15.svg"><span/></td>
+      <td class="game" id="square3"><span/></td>
+      <td class="game" id="square4"><span/></td>
+      <td class="game" id="square5"><span/></td>
     </tr>
     <tr>
-      <td id="square6"><img height="125" width="250" src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Maya_1.svg">
-      <img width="250" height="125" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Mayan00.svg"><span/></td>
-      <td id="square7"><img width="250" src="https://upload.wikimedia.org/wikipedia/commons/7/73/Maya_19.svg"><span/></td>
-      <td id="square8"><img width="250" height="125" src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Maya_1.svg"><img width="250" height="125" src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Maya_1.svg"><span/></td>
+      <td class="game" id="square6"><span/></td>
+      <td class="game" id="square7"><span/></td>
+      <td class="game" id="square8"><span/></td>
     </tr>
   </table>
+</div>
+<br/>
+<hr/>
+<br/>
+<div id="setup">
+  <table>
+    <tr>
+      <td id="value0"><input type="text" size="1" maxlength="1"/></td>
+      <td id="value1"><input type="text" size="1" maxlength="1"/></td>
+      <td id="value2"><input type="text" size="1" maxlength="1"/></td>
+    </tr>
+    <tr>
+      <td id="value3"><input type="text" size="1" maxlength="1"/></td>
+      <td id="value4"><input type="text" size="1" maxlength="1"/></td>
+      <td id="value5"><input type="text" size="1" maxlength="1"/></td>
+    </tr>
+    <tr>
+      <td id="value6"><input type="text" size="1" maxlength="1"/></td>
+      <td id="value7"><input type="text" size="1" maxlength="1"/></td>
+      <td id="value8"><input type="text" size="1" maxlength="1"/></td>
+    </tr>
+  </table>
+</div>
 <script>
 $().ready(function() {
-   $("td").click(function () {
-    var index = $(this).attr("id").substring(6);
+   $("td.game").click(function () {
+    var index = $(this).attr("id").substr(-1);
     squareValues[index]++;
     if (squareValues[index] > 2) {
       squareValues[index] = 0;
     }    
     if (squareValues[index] === 0) {
-//      $(this).html(squareNums[index]);
-      $(this).find("span").html("");
-      $(this).find("img").show();
+      $(this).find("span").html($("#value" + this.id.substr(-1)).find("input").val()).css("color", "black");
     } else if (squareValues[index] === 1) {
-      $(this).find("img").hide();
       $(this).find("span").html("X").css("color", "red");
     } else if (squareValues[index] === 2) {
       $(this).find("span").html("O").css("color", "green");
     }
-  })
-  
-    
-//    for (var i = 0; i < 9; i++) {
-//      $("#square" + i).html(squareNums[i]);
-//    }
-  
+  });
+	
+  $("#setup td").find("input").keypress(function(e) {
+	var index = $(this).parent().attr("id").substr(-1);
+	$(this).val(String.fromCharCode(e.which));
+	if (squareValues[index] === 0) {
+		$("#square" + index).find("span").html(String.fromCharCode(e.which));
+	}
+	console.log("keyup " + e.which + " " + index);
+  });    
 }); 
 </script>
 </body>
